@@ -13,8 +13,8 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          SECRET_KEY: secret
           POSTGRES_DB: anythink-market
         ports:
           - 5432:5432
@@ -41,41 +41,8 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Install Python dependencies
-        run: |
-          cd python-server
-          pip install -r requirements.txt
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/anythink-market
-
-      - name: Install Express server dependencies
-        run: |
-          cd express-server
-          npm install
-
-      - name: Start Python server
-        run: |
-          cd python-server
-          uvicorn src.main:app --host 0.0.0.0 --port 8000 &
-          sleep 10
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/anythink-market
-
-      - name: Start Express server
-        run: |
-          cd express-server
-          npm start &
-          sleep 10
-
-      - name: Verify servers are running
-        run: |
-          curl http://localhost:8000/ && echo "✓ Python server OK" || echo "✗ Python server failed"
-          curl http://localhost:8001/ && echo "✓ Express server OK" || echo "✗ Express server failed"
-
       - name: Wilco checks
         id: Wilco
         uses: trywilco/actions@main
         with:
           engine: ${{ secrets.WILCO_ENGINE_URL }}
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/anythink-market
