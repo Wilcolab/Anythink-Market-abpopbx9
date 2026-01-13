@@ -1,0 +1,10 @@
+services:
+  expressserver:
+    image: expressserver
+    build:
+      context: express-server-1
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8000:8000

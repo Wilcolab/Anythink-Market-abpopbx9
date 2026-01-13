@@ -1,20 +1,10 @@
-FROM node:14
-
-# Set the working directory
+FROM node:lts-alpine
+ENV NODE_ENV=production
 WORKDIR /usr/src/app
-
-# Copy package.json and package-lock.json
-COPY package.json ./
-COPY yarn.lock ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install --production --silent && mv node_modules ../
 COPY . .
-
-# Expose the port the app runs on
-EXPOSE 8001
-
-# Command to run the application
+EXPOSE 8000
+RUN chown -R node /usr/src/app
+USER node
 CMD ["npm", "start"]
