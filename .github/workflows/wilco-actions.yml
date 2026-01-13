@@ -41,6 +41,33 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Install Python dependencies
+        run: |
+          cd python-server
+          pip install -r requirements.txt
+
+      - name: Install Express server dependencies
+        run: |
+          cd express-server
+          npm install
+
+      - name: Start Python server
+        run: |
+          cd python-server
+          python src/main.py &
+          sleep 5
+
+      - name: Start Express server
+        run: |
+          cd express-server
+          npm start &
+          sleep 5
+
+      - name: Verify servers are running
+        run: |
+          curl -f http://localhost:8000/ || echo "Python server check"
+          curl -f http://localhost:8001/ || echo "Express server check"
+
       - name: Wilco checks
         id: Wilco
         uses: trywilco/actions@main
