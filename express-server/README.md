@@ -1,21 +1,32 @@
 # Express Server Project
 
-This project is a simple Express server that listens on port 8001. It is set up to use nodemon for automatic code reloading during development.
+This is a simple Express server project that listens on port 8001. The server is set up to use Nodemon for automatic code reloading during development.
+
+## Project Structure
+
+```
+express-server
+├── src
+│   └── index.js          # Entry point of the application
+├── .gitignore            # Specifies files to be ignored by Git
+├── Dockerfile            # Instructions to build a Docker image for the server
+├── package.json          # Configuration file for npm
+├── yarn.lock             # Locks the versions of the dependencies
+└── README.md             # Documentation for the project
+```
 
 ## Getting Started
 
-To get started with this project, follow the instructions below.
-
 ### Prerequisites
 
-Make sure you have [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) installed on your machine.
+- Node.js and Yarn should be installed on your machine.
 
 ### Installation
 
 1. Clone the repository:
    ```
    git clone https://github.com/Wilcolab/Anythink-Market-abpopbx9.git
-   cd express-server
+   cd Anythink-Market-abpopbx9/express-server
    ```
 
 2. Install the dependencies:
@@ -26,25 +37,29 @@ Make sure you have [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com
 ### Running the Server
 
 To start the server with automatic reloading, use the following command:
+
 ```
 yarn start
 ```
-The server will be running on `http://localhost:8001`.
 
-### Building the Docker Image
+The server will listen on port 8001.
 
-To build the Docker image for the Express server, run:
-```
-docker build -t express-server .
-```
+### Docker
 
-### Running the Docker Container
+To build and run the server using Docker, use the following commands:
 
-After building the image, you can run the container with:
-```
-docker run -p 8001:8001 express-server
-```
+1. Build the Docker image:
+   ```
+   docker build -t express-server .
+   ```
 
-### License
+2. Run the Docker container:
+   ```
+   docker run -p 8001:8001 express-server
+   ```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The server will be accessible at `http://localhost:8001`.
+
+## License
+
+This project is licensed under the MIT License.
