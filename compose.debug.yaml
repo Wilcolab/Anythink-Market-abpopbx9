@@ -1,0 +1,12 @@
+services:
+  expressserver:
+    image: expressserver
+    build:
+      context: express-server-1
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - 8000:8000
+      - 9229:9229
+    command: ["node", "--inspect=0.0.0.0:9229", "src/server.js"]
